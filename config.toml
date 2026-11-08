@@ -51,7 +51,7 @@ theme_switcher = true
 
 # This setting determines the default theme on load ("light" or "dark").
 # To follow the user's OS theme, leave it empty or unset.
-default_theme = ""
+default_theme = "dark"
 
 # Choose the colourscheme (skin) for the theme. Default is "teal".
 # Skin available: blue, lavender, mint, red, sakura, teal, monochrome, lowcontrast_orange, lowcontrast_peach, lowcontrast_pink, indigo_ingot, evangelion
@@ -60,7 +60,7 @@ default_theme = ""
 # contrast (in light theme) for readability and might not be suitable for all users.
 # Furthermore, low contrasting elements will affect your Google Lighthouse rating.
 # All other skins have optimal contrast.
-skin = ""
+skin = "lavender"
 
 # Set browser theme colour. Can be a single colour or [light, dark].
 # Note: Bright colors may be ignored in dark mode.
