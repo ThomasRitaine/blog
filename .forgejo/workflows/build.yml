@@ -10,21 +10,37 @@ jobs:
     runs-on: codeberg-small
     env:
       IMAGE: codeberg.org/thomasritaine/blog
-      STORAGE_DRIVER: vfs
-      BUILDAH_ISOLATION: chroot
+      ZOLA_VERSION: 0.23.6
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Install buildah
-        run: apt-get update -qq && apt-get install -y -qq buildah
+      - name: Install tools
+        run: apt-get update -qq && apt-get install -y -qq buildah curl ca-certificates
 
-      - name: Build (amd64 + arm64)
-        run: buildah build --platform linux/amd64,linux/arm64 --manifest blog .
+      - name: Build site with Zola
+        run: |
+          curl -fsSL "https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C /usr/local/bin
+          zola --version
+          zola build
+
+      - name: Assemble image (amd64 + arm64)
+        run: |
+          set -eu
+          b() { buildah --storage-driver vfs "$@"; }
+          b manifest create blog
+          for arch in amd64 arm64; do
+            ctr=$(b from --arch "$arch" ghcr.io/static-web-server/static-web-server:2)
+            b copy "$ctr" public/ /public
+            b commit --manifest blog "$ctr"
+          done
+          b manifest inspect blog
 
       - name: Push to Codeberg registry
         run: |
-          echo "${{ secrets.REGISTRY_TOKEN }}" | buildah login -u ThomasRitaine --password-stdin codeberg.org
-          buildah manifest push --all blog "docker://$IMAGE:main"
-          buildah manifest push --all blog "docker://$IMAGE:sha-${GITHUB_SHA::8}"
+          set -eu
+          b() { buildah --storage-driver vfs "$@"; }
+          echo "${{ secrets.REGISTRY_TOKEN }}" | b login -u ThomasRitaine --password-stdin codeberg.org
+          b manifest push --all blog "docker://$IMAGE:main"
+          b manifest push --all blog "docker://$IMAGE:sha-${GITHUB_SHA::8}"
