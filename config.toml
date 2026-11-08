@@ -339,21 +339,21 @@ enable_csp = true
 [extra.analytics]
 # Specify which analytics service you want to use.
 # Supported options: ["goatcounter", "umami", "plausible"]
-# service = ""
+service = "umami"
 
 # Unique identifier for tracking.
 # For GoatCounter, this is the code you choose during signup.
 # For Umami, this is the website ID.
 # For Plausible, this is the domain name (e.g. "example.com").
 # Note: Leave this field empty if you're self-hosting GoatCounter.
-# id = "yourID"
+id = "0e29881f-314d-4b94-8615-bfff105d16d2"
 
 # Optional: Specify the URL for self-hosted analytics instances.
 # For GoatCounter: Base URL like "https://stats.example.com"
 # For Umami: Base URL like "https://umami.example.com"
 # For Plausible: Base URL like "https://plausible.example.com"
 # Leave this field empty if you're using the service's default hosting.
-# self_hosted_url = ""
+self_hosted_url = "https://analytics.thomas.ritaine.com"
 
 # Optional: For Umami, enable this option to respect users' Do Not Track (DNT) settings. The default is true.
 do_not_track = true
