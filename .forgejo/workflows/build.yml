@@ -1,0 +1,30 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  image:
+    runs-on: codeberg-small
+    env:
+      IMAGE: codeberg.org/thomasritaine/blog
+      STORAGE_DRIVER: vfs
+      BUILDAH_ISOLATION: chroot
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install buildah
+        run: apt-get update -qq && apt-get install -y -qq buildah
+
+      - name: Build (amd64 + arm64)
+        run: buildah build --platform linux/amd64,linux/arm64 --manifest blog .
+
+      - name: Push to Codeberg registry
+        run: |
+          echo "${{ secrets.REGISTRY_TOKEN }}" | buildah login -u ThomasRitaine --password-stdin codeberg.org
+          buildah manifest push --all blog "docker://$IMAGE:main"
+          buildah manifest push --all blog "docker://$IMAGE:sha-${GITHUB_SHA::8}"
