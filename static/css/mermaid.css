@@ -1,0 +1,108 @@
+pre.mermaid,
+.mermaid {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Flowchart nodes (boxes, cylinders, pills) */
+.mermaid svg .node rect,
+.mermaid svg .node circle,
+.mermaid svg .node polygon,
+.mermaid svg .node path,
+.mermaid svg .basic.label-container {
+  fill: var(--bg-1) !important;
+  stroke: var(--primary-color) !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Highlighted nodes (:::accent) */
+.mermaid svg .accent rect,
+.mermaid svg .accent path,
+.mermaid svg .accent polygon {
+  fill: color-mix(in srgb, var(--primary-color) 16%, var(--background-color)) !important;
+  stroke: var(--primary-color) !important;
+  stroke-width: 2px !important;
+}
+
+/* Muted / secondary nodes (:::muted) */
+.mermaid svg .muted rect,
+.mermaid svg .muted path,
+.mermaid svg .muted polygon {
+  fill: var(--background-color) !important;
+  stroke: var(--divider-color) !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Subgraph containers */
+.mermaid svg .cluster rect {
+  fill: color-mix(in srgb, var(--primary-color) 4%, var(--background-color)) !important;
+  stroke: var(--divider-color) !important;
+  stroke-width: 1.25px !important;
+  stroke-dasharray: 5 5 !important;
+  rx: 8px !important;
+}
+
+/* Node and subgraph labels */
+.mermaid svg .nodeLabel,
+.mermaid svg .nodeLabel p,
+.mermaid svg .cluster-label .nodeLabel,
+.mermaid svg .cluster-label p,
+.mermaid svg .node text,
+.mermaid svg .cluster-label text {
+  margin: 0 !important;
+  color: var(--text-color) !important;
+  fill: var(--text-color) !important;
+}
+
+/* Arrows and arrowheads */
+.mermaid svg .edgePath .path,
+.mermaid svg .flowchart-link {
+  stroke: var(--primary-color) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid svg .marker,
+.mermaid svg marker path {
+  fill: var(--primary-color) !important;
+  stroke: var(--primary-color) !important;
+}
+
+/* Clean arrow labels: strip all outer/inner wrappers, style only one pill */
+.mermaid svg .edgeLabel rect {
+  fill: transparent !important;
+  stroke: none !important;
+}
+
+.mermaid svg .edgeLabel,
+.mermaid svg .edgeLabel foreignObject,
+.mermaid svg .edgeLabel div,
+.mermaid svg .labelBkg {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+.mermaid svg .edgeLabel p {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  line-height: 1.3 !important;
+  color: var(--text-color) !important;
+}
+
+.mermaid svg span.edgeLabel {
+  display: inline-block !important;
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  padding: 2px 7px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--divider-color) !important;
+  font-size: 0.85em !important;
+  line-height: 1.3 !important;
+}
