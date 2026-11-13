@@ -1,2 +1,4 @@
 public/
+/.audio-out/
 .DS_Store
+.env.local

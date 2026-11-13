@@ -1,0 +1,2 @@
+/* Without JavaScript (e.g. Tor Browser "Safest") the player can't work: drop the placeholder. */
+.listen { display: none !important; }

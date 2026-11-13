@@ -1,0 +1,42 @@
+# Narrated audio for posts and projects. Independent from build.yml:
+# a failure here never blocks a deploy.
+name: audio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/posts/**"
+      - "content/projects/**"
+  workflow_dispatch:
+    inputs:
+      pages:
+        description: "missing, all, or space-separated slugs (e.g. posts/my-post)"
+        required: false
+        default: "missing"
+        type: string
+
+jobs:
+  audio:
+    runs-on: codeberg-small
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the diff needs the commit from before the push
+      - name: Install ffmpeg
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends ffmpeg python3 >/dev/null
+          python3 -c 'import sys, tomllib; print(sys.version)'
+      - name: Generate audio
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          PAGES: ${{ github.event.inputs.pages }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_TTS_API_KEY: ${{ secrets.GOOGLE_TTS_API_KEY }}
+          B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+          B2_BUCKET: ${{ secrets.B2_BUCKET }}
+          CF_PURGE_TOKEN: ${{ secrets.CF_PURGE_TOKEN }}
+        run: python3 scripts/audio/generate.py

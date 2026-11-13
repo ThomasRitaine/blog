@@ -1,0 +1,67 @@
+.listen {
+  display: none;
+  box-sizing: border-box;
+  height: 3rem;
+  margin: 0 0 1.5rem;
+  padding: 0 .5rem;
+  align-items: center;
+  gap: .375rem;
+  border: 1px solid var(--divider-color, #8885);
+  border-radius: 999px;
+  background: var(--bg-1, transparent);
+  font-size: .875rem;
+}
+.listen--reserve { display: flex; visibility: hidden; }     /* placeholder: keeps the space */
+.listen.is-ready { display: flex; visibility: visible; animation: listen-in .25s ease-out; }
+@keyframes listen-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .listen.is-ready { animation: none; } }
+
+.listen button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--text-color, currentColor);
+  font: inherit;
+  cursor: pointer;
+}
+.listen button:hover { background: var(--bg-2, #8882); }
+.listen :focus-visible { outline: 2px solid var(--primary-color, currentColor); outline-offset: 2px; }
+.listen svg { width: 1.25rem; height: 1.25rem; fill: currentColor; }
+
+.listen .listen-play { background: var(--primary-color, currentColor); color: var(--background-color, #fff); }
+.listen .listen-play:hover { background: var(--primary-color, currentColor); filter: brightness(1.1); }
+
+.listen-skip span { position: absolute; padding-top: .2rem; font-size: .55rem; font-weight: 700; }
+.listen-fwd svg { transform: scaleX(-1); }
+
+.listen-bar { position: relative; flex: 1; min-width: 3rem; height: 1.5rem; cursor: pointer; touch-action: none; }
+.listen-bar::before,
+.listen-fill {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: .3rem;
+  margin-top: -.15rem;
+  border-radius: .15rem;
+}
+.listen-bar::before { background: var(--bg-3, #8884); }
+.listen-fill { background: var(--primary-color, currentColor); transform: scaleX(0); transform-origin: left; }
+
+.listen-time {
+  flex: none;
+  color: var(--meta-color, inherit);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.listen .listen-rate { width: auto; min-width: 2.75rem; padding: 0 .5rem; border-radius: 999px; font-weight: 600; }
+
+@media (max-width: 30rem) { .listen-time { font-size: .75rem; } .listen { gap: .125rem; } }

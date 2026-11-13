@@ -1,0 +1,17 @@
+cdn_base = "https://cdn.thomas.ritaine.com/blog"        # public URL of blog/ in the bucket
+key_prefix = "blog/"                                    # bucket prefix
+cloudflare_zone_id = "892abbb0e2dff5182827dfd4757dc19a"
+sections = ["posts", "projects"]                        # Sections for which to generate audio
+
+models = ["gemini-3.8-flash", "gemini-3.5-flash-lite"] # tried in order
+voice = "en-US-Chirp3-HD-Fenrir"                       # ← the voice you picked
+speaking_rate = 1.0
+
+sample_rate = 24000
+bitrate = "48k"
+loudness = { I = -16, TP = -1.5, LRA = 11 }
+cache_control = "public, max-age=86400, s-maxage=31536000"
+
+chunk_bytes = 3000        # TTS hard limit is 5000 bytes per request
+pause_seconds = 0.6       # silence between chunks
+time_budget_seconds = 150 # stop starting new pages after this (Codeberg small = 5 min)

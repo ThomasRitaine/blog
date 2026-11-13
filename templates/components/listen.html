@@ -1,0 +1,6 @@
+{% component listen(base: string = "https://cdn.thomas.ritaine.com/blog", reserve: bool = true) %}
+<div class="listen{% if reserve %} listen--reserve{% endif %}" data-base="{{ base }}" aria-label="AI-generated narration of this page"></div>
+<link rel="stylesheet" href="{{ get_url(path='css/listen.css', cachebust=true) }}">
+<noscript><link rel="stylesheet" href="{{ get_url(path='css/listen-nojs.css', cachebust=true) }}"></noscript>
+<script src="{{ get_url(path='js/listen.js', cachebust=true) }}" defer></script>
+{% endcomponent listen %}

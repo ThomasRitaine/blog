@@ -38,6 +38,8 @@ style = "class"
 error_on_missing_language = true
 
 [extra]
+audio_base_url = "https://cdn.thomas.ritaine.com/blog"
+
 # Check out the documentation (or the comments below) to learn how to customise tabi:
 # https://welpo.github.io/tabi/blog/mastering-tabi-settings/
 
@@ -313,6 +315,7 @@ allowed_domains = [
   ] },
   { directive = "media-src", domains = [
     "'self'",
+    "https://cdn.thomas.ritaine.com",
   ] },
   { directive = "script-src", domains = [
     "'self'",
@@ -323,6 +326,11 @@ allowed_domains = [
   { directive = "frame-src", domains = [
     "player.vimeo.com",
     "https://www.youtube-nocookie.com",
+  ] },
+  { directive = "connect-src", domains = [
+    "'self'",
+    "https://analytics.thomas.ritaine.com",
+    "https://cdn.thomas.ritaine.com",
   ] },
 ]
 
